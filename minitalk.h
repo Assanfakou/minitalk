@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfakou <hfakou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 20:29:08 by hfakou            #+#    #+#             */
-/*   Updated: 2025/03/21 22:07:39 by hfakou           ###   ########.fr       */
+/*   Created: 2025/03/21 22:01:42 by hfakou            #+#    #+#             */
+/*   Updated: 2025/03/21 22:30:53 by hfakou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-void	signal_handler(int signum)
-{
-	static char	c = 0;
-	static int	bit = 7;
+# include <limits.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
-	if (signum == SIGUSR2)
-		c = c | (1 << bit);
-	if (bit == 0)
-	{
-		write(1, &c, 1);
-		c = 0;
-		bit = 8;
-	}
-	bit--;
-}
-
-int	main(void)
-{
-	printf("Server PID: %d\n", getpid());
-	signal(SIGUSR1, signal_handler);
-	signal(SIGUSR2, signal_handler);
-	while (1)
-		pause();
-	return (0);
-}
+void	signal_handler(int signum);
+int		ft_atoi(char *str);
+void	send_bit_and_wait(int pid, int bit);
+void	send_bit(int pid, char c);
+void check_pid(char *str);
+#endif
