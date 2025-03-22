@@ -6,7 +6,7 @@
 /*   By: hfakou <hfakou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:29:08 by hfakou            #+#    #+#             */
-/*   Updated: 2025/03/21 22:29:42 by hfakou           ###   ########.fr       */
+/*   Updated: 2025/03/22 23:33:07 by hfakou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 /*
 		00000001          00001001
-      | 00101000        & 00101001
+	  | 00101000        & 00101001
 		00101001          00001001
 */
-void check_pid(char *str)
+void	check_pid(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -28,11 +28,12 @@ void check_pid(char *str)
 			i++;
 		else
 		{
-			write (2, "PID incorrect\n", 14);
+			write(2, "PID incorrect\n", 14);
 			exit(EXIT_FAILURE);
 		}
 	}
 }
+
 int	ft_atoi(char *str)
 {
 	size_t	res;
@@ -61,10 +62,16 @@ int	ft_atoi(char *str)
 void	send_bit_and_wait(int pid, int bit)
 {
 	if (bit)
-		kill(pid, SIGUSR2);
+	{
+		if (kill(pid, SIGUSR2) == -1)
+			exit(EXIT_FAILURE);
+	}
 	else
-		kill(pid, SIGUSR1);
-	usleep(1600);
+	{
+		if (kill(pid, SIGUSR1) == -1)
+			exit(EXIT_FAILURE);
+	}
+	usleep(200);
 }
 
 void	send_bit(int pid, char c)
@@ -86,13 +93,14 @@ int	main(int ac, char **av)
 
 	if (ac != 3)
 	{
+		// shold be removed
 		printf("Usage: %s <PID> <message>\n", av[0]);
 		return (1);
 	}
 	check_pid(av[1]);
 	pid = ft_atoi(av[1]);
 	if (pid == INT_MAX || pid == 0)
-		return (1);
+		exit(EXIT_FAILURE);
 	i = 0;
 	while (av[2][i])
 	{

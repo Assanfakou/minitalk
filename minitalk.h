@@ -24,5 +24,5 @@ void	signal_handler(int signum);
 int		ft_atoi(char *str);
 void	send_bit_and_wait(int pid, int bit);
 void	send_bit(int pid, char c);
-void check_pid(char *str);
+void	check_pid(char *str);
 #endif

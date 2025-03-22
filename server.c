@@ -6,11 +6,29 @@
 /*   By: hfakou <hfakou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:29:08 by hfakou            #+#    #+#             */
-/*   Updated: 2025/03/21 22:07:39 by hfakou           ###   ########.fr       */
+/*   Updated: 2025/03/22 23:29:57 by hfakou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void printnum(int nbr)
+{
+	unsigned int n;
+	char c; 
+
+	if (nbr < 0)
+	{
+		write (1, "-", 1);
+		n = nbr;
+	}
+	else
+		n = nbr;
+	if (n > 9)
+		printnum(n / 10);
+	c = n % 10 + '0';
+	write (1, &c, 1);
+}
 
 void	signal_handler(int signum)
 {
@@ -30,7 +48,8 @@ void	signal_handler(int signum)
 
 int	main(void)
 {
-	printf("Server PID: %d\n", getpid());
+	write (1, "Server PID NUM : ", 17);
+	printnum(getpid());
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)
