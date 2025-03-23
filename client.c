@@ -6,17 +6,12 @@
 /*   By: hfakou <hfakou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:29:08 by hfakou            #+#    #+#             */
-/*   Updated: 2025/03/22 23:33:07 by hfakou           ###   ########.fr       */
+/*   Updated: 2025/03/23 03:00:15 by hfakou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-/*
-		00000001          00001001
-	  | 00101000        & 00101001
-		00101001          00001001
-*/
 void	check_pid(char *str)
 {
 	int	i;
@@ -71,7 +66,7 @@ void	send_bit_and_wait(int pid, int bit)
 		if (kill(pid, SIGUSR1) == -1)
 			exit(EXIT_FAILURE);
 	}
-	usleep(200);
+	usleep(1600);
 }
 
 void	send_bit(int pid, char c)
@@ -93,9 +88,8 @@ int	main(int ac, char **av)
 
 	if (ac != 3)
 	{
-		// shold be removed
-		printf("Usage: %s <PID> <message>\n", av[0]);
-		return (1);
+		write(1, "Usage: <Program name> <PID> <message>\n", 39);
+		exit(EXIT_FAILURE);
 	}
 	check_pid(av[1]);
 	pid = ft_atoi(av[1]);
