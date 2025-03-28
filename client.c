@@ -6,7 +6,7 @@
 /*   By: hfakou <hfakou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:29:08 by hfakou            #+#    #+#             */
-/*   Updated: 2025/03/23 20:41:01 by hfakou           ###   ########.fr       */
+/*   Updated: 2025/03/28 20:01:35 by hfakou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ long	ft_atoi(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + (str[i] - '0');
-		printf("%ld\n", res);
 		if (res >= INT_MAX)
 			return (INT_MAX);
 		i++;
